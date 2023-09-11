@@ -1,4 +1,4 @@
-install: setup-docker install-app install-db
+install: setup-docker install-app install-db docker-create-db docker-start-migrate
 
 setup-docker:
 	docker-compose up -d --build
@@ -14,7 +14,6 @@ install-app:
 
 install-db:
 	docker-create-db
-	docker-create-migrate
 	docker-start-migrate
 
 docker-create-db:
