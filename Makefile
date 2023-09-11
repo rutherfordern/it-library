@@ -1,4 +1,4 @@
-install: setup-docker install-app install-db docker-create-db docker-start-migrate
+install: setup-docker install-app
 
 setup-docker:
 	docker-compose up -d --build
@@ -11,10 +11,6 @@ stop-docker:
 
 install-app:
 	docker compose exec app composer install
-
-install-db:
-	docker-create-db
-	docker-start-migrate
 
 docker-create-db:
 	docker compose exec app php bin/console doctrine:database:create
