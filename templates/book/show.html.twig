@@ -1,0 +1,26 @@
+{% extends 'layouts/app.html.twig' %}
+
+{% block content %}
+    <div class="row mt-4">
+        <div class="col-md-4">
+            <img src="{{ vich_uploader_asset(book, 'imageFile') }}" class="img-fluid" alt="Обложка книги">
+        </div>
+        <div class="col-md-8">
+            <h3 class="mt-0">{{ book.title }}</h3>
+            {% set authorNames = [] %}
+            {% for author in book.authors %}
+                {% set authorNames = authorNames|merge([author.firstName ~ ' ' ~ author.lastName]) %}
+            {% endfor %}
+            <div>Автор: {{ authorNames|join(', ') }}</div>
+            <div>Год издания: {{ book.year }}</div>
+            <div>ISBN: {{ book.isbn }}</div>
+        </div>
+    </div>
+
+    <a href="{{ path('book_update', {'id': book.id}) }}" class="btn btn-primary mt-3">Редактировать книгу</a>
+
+    <form action="{{ path('book_delete', {id: book.id}) }}" method="POST" onsubmit="return confirm('Вы уверены, что хотите удалить эту книгу?')">
+        <input type="hidden" name="_method" value="DELETE"/>
+        <button type="submit" class="btn btn-danger mt-3">Удалить книгу</button>
+    </form>
+{% endblock %}

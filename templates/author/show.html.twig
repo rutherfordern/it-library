@@ -1,0 +1,31 @@
+{% extends 'layouts/app.html.twig' %}
+
+{% block content %}
+    <div class="d-flex align-items-center bg-light p-3 my-3 rounded shadow-sm">
+        <div class="lh-1">
+            <h4 class="h4 mb-0 lh-1">{{ author.FirstName }} {{ author.LastName }}</h4>
+        </div>
+    </div>
+
+    <div class="my-3 p-3 rounded bg-light shadow-sm">
+        <h4 class="border-bottom pb-2 mb-0">Книги</h4>
+        {% for book in author.books %}
+            <div class="d-flex text-body-secondary pt-3">
+                <img src="{{ vich_uploader_asset(book, 'imageFile') }}" class="bd-placeholder-img flex-shrink-0 me-2 rounded" width="32" height="32" alt="Обложка книги">
+                <div class="pb-3 mb-0 small lh-sm border-bottom w-100">
+                    <div class="d-flex justify-content-between">
+                        <strong><a href="{{ path('book_show', { 'id': book.id }) }}" class="text-decoration-none link-secondary">{{ book.title }}</a></strong>
+                    </div>
+                    <span class="d-block">{{ author.FirstName }} {{ author.LastName }}</span>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    <a href="{{ path('author_update', {'id': author.id}) }}" class="btn btn-primary mt-3">Редактировать автора</a>
+
+    <form action="{{ path('author_delete', {id: author.id}) }}" method="POST" onsubmit="return confirm('Вы уверены, что хотите удалить данного автора?')">
+        <input type="hidden" name="_method" value="DELETE"/>
+        <button type="submit" class="btn btn-danger mt-3">Удалить автора</button>
+    </form>
+{% endblock %}

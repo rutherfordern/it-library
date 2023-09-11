@@ -1,0 +1,23 @@
+{% extends 'layouts/app.html.twig' %}
+
+{% block title %}Authors{% endblock %}
+
+{% block content %}
+    <div class="d-flex align-items-center p-3 my-3 text-white bg-secondary rounded shadow-sm">
+        <div class="lh-1">
+            <h1 class="h2 mb-0 text-white lh-1">Авторы</h1>
+        </div>
+    </div>
+
+    <div class="my-3 p-3 rounded bg-light shadow-sm">
+        {% for author in authors %}
+            <div class="d-flex text-body-secondary pt-3">
+                <div class="pb-3 mb-0 small lh-sm border-bottom w-100">
+                    <div class="d-flex justify-content-between">
+                        <h5><a class="link-secondary" href="{{ path('author_show', { 'id': author.id }) }}">{{ author.firstName }} {{ author.LastName }}</a></h5>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
